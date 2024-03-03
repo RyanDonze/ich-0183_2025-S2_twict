@@ -119,6 +119,13 @@ class User extends Model
                 SQL)
             ->fetch() ?: null;
 
+<<<<<<< HEAD
+=======
+        if ($model === false) {
+            $model = null;
+        }
+
+>>>>>>> 478ebdf (Initial commit for solution)
         return $model;
     }
 }
