@@ -1,0 +1,22 @@
+{% extends "/layout/base" %}
+
+{% block title %}Déconnexion d'un utilisateur{% endblock %}
+
+{% block content %}
+<section id="authentication" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>Déconnexion HTTP Form</h2>
+                <p>Etes-vous sûr de vouloir vous déconnecter ?</p>
+                <form method="post">
+                    <div class="form-group">
+                        <a href="/auth" class="btn btn-secondary">Retour</a>
+                        <button type="submit" class="btn btn-primary">Déconnexion</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
