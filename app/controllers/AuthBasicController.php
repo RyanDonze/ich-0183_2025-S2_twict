@@ -27,12 +27,6 @@ class AuthBasicController extends AppController
             $this->redirect('/auth');
         }
 
-<<<<<<< HEAD
-=======
-        
-        $this->sessionSecurityHandler->regenerateSession();
-
->>>>>>> 43e3c8b (Initial commit for solution)
         $this->sessionSecurityHandler->regenerateSession();
         $_SESSION['user'] = $user;
         $this->flash->success('Le processus de connexion a réussi');
