@@ -96,6 +96,7 @@ class User extends Model
         return $success;
     }
 
+<<<<<<< HEAD
     public static function findByMailAddress(string $mailAddress): ?array
     {
         $db = static::getDB();
@@ -113,6 +114,9 @@ class User extends Model
     }
 
     public static function findByMailAddressAndPassword(string $mailAddress, string $password): ?array
+=======
+    public static function findByMailAddressAndPassword(string $mailAddress, string $password): array
+>>>>>>> b727f5a (Initial commit for solution)
     {
         $db = static::getDB();
 
@@ -124,6 +128,7 @@ class User extends Model
                 AND `password`= '{$password}'
                 LIMIT 1;
                 SQL)
+<<<<<<< HEAD
             ->fetch() ?: null;
 
 <<<<<<< HEAD
@@ -133,6 +138,10 @@ class User extends Model
         }
 
 >>>>>>> 750c399 (Fix model error when no result found)
+=======
+            ->fetch();
+
+>>>>>>> b727f5a (Initial commit for solution)
         return $model;
     }
 }
