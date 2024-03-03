@@ -35,13 +35,6 @@ class User extends Model
             SQL)
             ->fetch() ?: null;
 
-<<<<<<< HEAD
-=======
-        if ($model === false) {
-            $model = null;
-        }
-
->>>>>>> 750c399 (Fix model error when no result found)
         return $model;
     }
 
@@ -96,7 +89,7 @@ class User extends Model
         return $success;
     }
 
-<<<<<<< HEAD
+
     public static function findByMailAddress(string $mailAddress): ?array
     {
         $db = static::getDB();
@@ -110,13 +103,12 @@ class User extends Model
                 SQL)
             ->fetch() ?: null;
 
+
         return $model;
     }
 
+
     public static function findByMailAddressAndPassword(string $mailAddress, string $password): ?array
-=======
-    public static function findByMailAddressAndPassword(string $mailAddress, string $password): array
->>>>>>> b727f5a (Initial commit for solution)
     {
         $db = static::getDB();
 
@@ -128,20 +120,8 @@ class User extends Model
                 AND `password`= '{$password}'
                 LIMIT 1;
                 SQL)
-<<<<<<< HEAD
             ->fetch() ?: null;
 
-<<<<<<< HEAD
-=======
-        if ($model === false) {
-            $model = null;
-        }
-
->>>>>>> 750c399 (Fix model error when no result found)
-=======
-            ->fetch();
-
->>>>>>> b727f5a (Initial commit for solution)
         return $model;
     }
 }

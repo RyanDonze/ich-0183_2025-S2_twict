@@ -1,7 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -9,13 +7,6 @@ namespace App\Controllers;
 use \App\Models\User;
 
 class AuthBasicController extends AppController
-=======
-namespace App\Controllers;
-
-use App\Models\User;
-
-class AuthBasicController extends \App\Controllers\AppController
->>>>>>> b727f5a (Initial commit for solution)
 {
     private const REALM = 'oPh?\dRG>B413a;E:5';
 
@@ -49,12 +40,7 @@ class AuthBasicController extends \App\Controllers\AppController
 
     public function logout(): void
     {
-<<<<<<< HEAD
         $this->sessionSecurityHandler->destroySession();
-=======
-        session_destroy();
-        session_start();
->>>>>>> b727f5a (Initial commit for solution)
 
         header('WWW-Authenticate: Basic realm="' . self::REALM . '"');
         header('HTTP/1.1 401 Unauthorized', true, 401);
