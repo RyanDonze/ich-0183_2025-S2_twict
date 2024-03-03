@@ -47,8 +47,11 @@ class AuthFormController extends AppController
     public function logout_post(): void
     {
         session_destroy();
+<<<<<<< HEAD
         session_start();
 
+=======
+>>>>>>> 2dfa74d (Initial commit for solution)
         $this->flash->success('Le processus de déconnexion a réussi');
         $this->redirect('/auth');
     }
