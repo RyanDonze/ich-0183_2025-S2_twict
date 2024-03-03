@@ -46,13 +46,8 @@ class AuthFormController extends AppController
 
     public function logout_post(): void
     {
-<<<<<<< HEAD
-        session_destroy();
-        session_start();
-
-=======
         $this->sessionSecurityHandler->destroySession();
->>>>>>> 076e585 (Initial solution for exercise)
+
         $this->flash->success('Le processus de déconnexion a réussi');
         $this->redirect('/auth');
     }
