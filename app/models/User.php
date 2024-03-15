@@ -89,7 +89,6 @@ class User extends Model
         return $success;
     }
 
-
     public static function findByMailAddress(string $mailAddress): ?array
     {
         $db = static::getDB();
@@ -103,10 +102,8 @@ class User extends Model
                 SQL)
             ->fetch() ?: null;
 
-
         return $model;
     }
-
 
     public static function findByMailAddressAndPassword(string $mailAddress, string $password): ?array
     {
