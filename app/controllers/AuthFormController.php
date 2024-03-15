@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use \App\Models\User;
 
-class AuthFormController extends \App\Controllers\AppController
+class AuthFormController extends AppController
 {
     public function login(): void
     {
