@@ -92,10 +92,7 @@ class User extends Model
         return $success;
     }
 
-<<<<<<< HEAD
     public static function findByMailAddress(string $mailAddress): ?array
-=======
-    public static function findByMailAddress(string $mailAddress): array
     {
         $db = static::getDB();
 
@@ -103,21 +100,6 @@ class User extends Model
             ->query(<<< SQL
                 SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
                 FROM `users`
-                WHERE `mailAddress`= '{$mailAddress}'
-                LIMIT 1;
-                SQL)
-            ->fetch();
-
-        return $model;
-    }
-
-    public static function findByMailAddressAndPassword(string $mailAddress, string $password): array
->>>>>>> c3c93b0 (Initial commit for solution)
-    {
-        $db = static::getDB();
-
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `mailAddress`= '{$mailAddress}'
                 LIMIT 1;
                 SQL)
