@@ -89,7 +89,7 @@ class User extends Model
         return $success;
     }
 
-    public static function findByMailAddressAndPassword(string $mailAddress, string $password): array
+    public static function findByMailAddressAndPassword(string $mailAddress, string $password): ?array
     {
         $db = static::getDB();
 
@@ -101,7 +101,7 @@ class User extends Model
                 AND `password`= '{$password}'
                 LIMIT 1;
                 SQL)
-            ->fetch();
+            ->fetch() ?: null;
 
         return $model;
     }
