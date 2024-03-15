@@ -35,6 +35,10 @@ class User extends Model
             SQL)
             ->fetch() ?: null;
 
+        if ($model === false) {
+            $model = null;
+        }
+
         return $model;
     }
 
@@ -102,6 +106,10 @@ class User extends Model
                 LIMIT 1;
                 SQL)
             ->fetch() ?: null;
+
+        if ($model === false) {
+            $model = null;
+        }
 
         return $model;
     }
