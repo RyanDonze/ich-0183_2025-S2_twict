@@ -117,7 +117,17 @@ class User extends Model
                 LIMIT 1;
                 SQL)
             ->fetch() ?: null;
+<<<<<<< HEAD
 
+<<<<<<< HEAD
+=======
+        if ($model === false) {
+            $model = null;
+        }
+=======
+>>>>>>> beb72fa (Fix model error when no result found)
+
+>>>>>>> e5efa37 (Fix model error when no result found)
         return $model;
     }
 }
