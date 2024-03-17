@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use \Core\Model;
+use PDO;
 
-class User extends Model
+class User extends AppModel
 {
     protected const QUERY_SELECT = <<< SQL
         SELECT *
@@ -45,14 +45,18 @@ class User extends Model
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                INSERT INTO `users`
-                    (`firstname`, `lastname`, `mailAddress`, `password`)
-                VALUES
-                    ('{$model['firstname']}', '{$model['lastname']}', '{$model['mailAddress']}', '{$model['password']}');
-                SQL)
-            ->execute();
+        $stmt = $db->prepare(<<<SQL
+            INSERT INTO `users` 
+                (`firstname`, `lastname`, `mailAddress`, `password`) 
+            VALUES
+                (:firstname, :lastname, :mailAddress, :password);
+            SQL);
+
+        $stmt->bindParam(':firstname', $model['firstname'], PDO::PARAM_STR);
+        $stmt->bindParam(':lastname', $model['lastname'], PDO::PARAM_STR);
+        $stmt->bindParam(':mailAddress', $model['mailAddress'], PDO::PARAM_STR);
+        $stmt->bindParam(':password', $model['password'], PDO::PARAM_STR);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -60,19 +64,23 @@ class User extends Model
     public static function update(array $model): bool
     {
         $db = static::getDB();
+        $stmt = $db->prepare(<<< SQL
+            UPDATE `users` SET
+                `firstname` = :firstname
+                , `lastname` = :lastname
+                , `mailAddress` = :mailAddress
+                , `password` = :password
+                , `updatedAt` = CURRENT_TIMESTAMP
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
 
-        $success = $db
-            ->prepare(<<< SQL
-                UPDATE `users` SET
-                    `firstname` = '{$model['firstname']}',
-                    `lastname` = '{$model['lastname']}',
-                    `mailAddress` = '{$model['mailAddress']}',
-                    `password` = '{$model['password']}',
-                    `updatedAt` = CURRENT_TIMESTAMP
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-                SQL)
-            ->execute();
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $stmt->bindParam(':firstname', $model['firstname'], PDO::PARAM_STR);
+        $stmt->bindParam(':lastname', $model['lastname'], PDO::PARAM_STR);
+        $stmt->bindParam(':mailAddress', $model['mailAddress'], PDO::PARAM_STR);
+        $stmt->bindParam(':password', $model['password'], PDO::PARAM_STR);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -81,13 +89,14 @@ class User extends Model
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                DELETE FROM `users`
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-                SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            DELETE FROM `users`
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
