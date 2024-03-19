@@ -29,6 +29,7 @@ class AuthFormController extends AppController
         }
 
 
+        $this->sessionSecurityHandler->regenerateSession();
         $_SESSION['user'] = $user;
         $this->flash->success('Le processus de connexion a réussi');
         $this->redirect('/auth');
@@ -45,7 +46,7 @@ class AuthFormController extends AppController
 
     public function logout_post(): void
     {
-        session_destroy();
+        $this->sessionSecurityHandler->destroySession();
         $this->flash->success('Le processus de déconnexion a réussi');
         $this->redirect('/auth');
     }
