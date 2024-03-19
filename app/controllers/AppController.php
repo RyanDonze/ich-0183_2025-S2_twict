@@ -30,22 +30,6 @@ abstract class AppController extends Controller
             return false;
         }
 
-        $this->sessionSecurityHandler = new \App\Libs\SessionSecurityHandler();
-        $this->sessionSecurityHandler->startSession();
-
-        if ($this->sessionSecurityHandler->verifySecurityToken() === false) {
-            http_response_code(401);
-            return false;
-        }
-
-        $this->sessionSecurityHandler = new \App\Libs\SessionSecurityHandler();
-        $this->sessionSecurityHandler->startSession();
-
-        if ($this->sessionSecurityHandler->verifySecurityToken() === false) {
-            http_response_code(401);
-            return false;
-        }
-
         return parent::before();
     }
 
