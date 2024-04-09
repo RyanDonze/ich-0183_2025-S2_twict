@@ -11,9 +11,15 @@ use \Core\View;
 
 abstract class AppController extends Controller
 {
+<<<<<<< HEAD
     protected \Core\View $view;
     protected \App\Helpers\FlashNotificationHelper $flash;
     protected \App\Libs\SessionSecurityHandler $sessionSecurityHandler;
+=======
+    protected View $view;
+    protected FlashNotificationHelper $flash;
+    protected SessionSecurityHandler $sessionSecurityHandler;
+>>>>>>> 1356c03 (Initial commit for solution)
 
     protected function before(): bool
     {
