@@ -11,15 +11,9 @@ use \Core\View;
 
 abstract class AppController extends Controller
 {
-<<<<<<< HEAD
     protected \Core\View $view;
     protected \App\Helpers\FlashNotificationHelper $flash;
     protected \App\Libs\SessionSecurityHandler $sessionSecurityHandler;
-=======
-    protected View $view;
-    protected FlashNotificationHelper $flash;
-    protected SessionSecurityHandler $sessionSecurityHandler;
->>>>>>> 1356c03 (Initial commit for solution)
 
     protected function before(): bool
     {
@@ -29,6 +23,14 @@ abstract class AppController extends Controller
         $this->flash = new FlashNotificationHelper();
 
         $this->sessionSecurityHandler = new SessionSecurityHandler();
+        $this->sessionSecurityHandler->startSession();
+
+        if ($this->sessionSecurityHandler->verifySecurityToken() === false) {
+            http_response_code(401);
+            return false;
+        }
+
+        $this->sessionSecurityHandler = new \App\Libs\SessionSecurityHandler();
         $this->sessionSecurityHandler->startSession();
 
         if ($this->sessionSecurityHandler->verifySecurityToken() === false) {
