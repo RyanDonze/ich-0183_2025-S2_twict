@@ -15,6 +15,7 @@ abstract class AppController extends Controller
     protected \App\Helpers\FlashNotificationHelper $flash;
     protected \App\Libs\SessionSecurityHandler $sessionSecurityHandler;
 
+
     protected function before(): bool
     {
         $this->view = new View(templatePath: dirname(__DIR__) . '/views/');
