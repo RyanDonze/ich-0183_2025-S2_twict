@@ -48,6 +48,10 @@ class AuthDigestController extends AppController
 
 
         $this->sessionSecurityHandler->regenerateSession();
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 63be35a (Initial commit for solution)
         $_SESSION['user'] = $user;
         $this->flash->success('Le processus de connexion a réussi');
         $this->redirect('/auth');
