@@ -12,7 +12,6 @@ require_once(dirname(__DIR__) . '/vendor/autoload.php');
  */
 ini_set('xdebug.var_display_max_depth', 10);
 ini_set('error_log', dirname(__DIR__) . '/logs/' . date('Y-m-d') . '.log');
-session_start();
 
 /**
  * Error and Exception handling
