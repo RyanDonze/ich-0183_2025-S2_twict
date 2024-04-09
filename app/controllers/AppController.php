@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+<<<<<<< HEAD
 use \App\Helpers\FlashNotificationHelper;
 use \App\Libs\SessionSecurityHandler;
 use \Core\Controller;
@@ -14,6 +15,15 @@ abstract class AppController extends Controller
     protected View $view;
     protected FlashNotificationHelper $flash;
     protected SessionSecurityHandler $sessionSecurityHandler;
+=======
+use App\Libs\SessionSecurityHandler;
+
+abstract class AppController extends \Core\Controller
+{
+    protected \Core\View $view;
+    protected \App\Helpers\FlashNotificationHelper $flash;
+    protected \App\Libs\SessionSecurityHandler $sessionSecurityHandler;
+>>>>>>> 63be35a (Initial commit for solution)
 
     protected function before(): bool
     {
