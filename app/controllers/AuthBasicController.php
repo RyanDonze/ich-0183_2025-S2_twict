@@ -27,7 +27,7 @@ class AuthBasicController extends AppController
             $this->redirect('/auth');
         }
 
-        $this->sessionSecurityHandler->regenerateSession();
+
         $_SESSION['user'] = $user;
         $this->flash->success('Le processus de connexion a réussi');
         $this->redirect('/auth');
@@ -41,7 +41,8 @@ class AuthBasicController extends AppController
 
     public function logout(): void
     {
-        $this->sessionSecurityHandler->destroySession();
+        session_destroy();
+        session_start();
 
         header('WWW-Authenticate: Basic realm="' . self::REALM . '"');
         header('HTTP/1.1 401 Unauthorized', true, 401);

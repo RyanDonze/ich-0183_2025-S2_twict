@@ -47,7 +47,6 @@ class AuthDigestController extends AppController
         }
 
 
-        $this->sessionSecurityHandler->regenerateSession();
         $_SESSION['user'] = $user;
         $this->flash->success('Le processus de connexion a réussi');
         $this->redirect('/auth');
@@ -62,7 +61,8 @@ class AuthDigestController extends AppController
 
     public function logout(): void
     {
-        $this->sessionSecurityHandler->destroySession();
+        session_destroy();
+        session_start();
 
         header('HTTP/1.1 401 Unauthorized');
         header('WWW-Authenticate: Digest realm="' . self::REALM . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5(self::REALM) . '"');

@@ -36,7 +36,6 @@ abstract class AppController extends Controller
     protected function after(): void
     {
         $this->view['debug.session'] = $_SESSION;
-        $this->view['debug.cookie'] = $_COOKIE;
 
         $this->flash->flush($this->view);
         $this->view->render();
