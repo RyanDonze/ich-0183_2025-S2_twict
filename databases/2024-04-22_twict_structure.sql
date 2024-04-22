@@ -139,12 +139,17 @@ ALTER TABLE `bankaccounts`
 --
 ALTER TABLE `financialtransactions`
 <<<<<<< HEAD
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 =======
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`);
 >>>>>>> 55e414e (Normalize database bootstrap)
+=======
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+>>>>>>> 20f7ed4 (Initial commit for solution)
 
 -- --------------------------------------------------------
 
@@ -153,12 +158,17 @@ ALTER TABLE `financialtransactions`
 --
 ALTER TABLE `transactionmessages`
 <<<<<<< HEAD
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 =======
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
 >>>>>>> 55e414e (Normalize database bootstrap)
+=======
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+>>>>>>> 20f7ed4 (Initial commit for solution)
 
 -- --------------------------------------------------------
 
