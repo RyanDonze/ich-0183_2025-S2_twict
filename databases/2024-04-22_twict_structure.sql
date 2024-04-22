@@ -138,8 +138,10 @@ ALTER TABLE `bankaccounts`
 -- Contraintes pour la table `financialtransactions`
 --
 ALTER TABLE `financialtransactions`
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -165,6 +167,17 @@ ALTER TABLE `financialtransactions`
 <<<<<<< HEAD
 =======
 >>>>>>> 3046af3 (Initial commit for solution)
+=======
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`);
+>>>>>>> 55e414e (Normalize database bootstrap)
+>>>>>>> fa3e19f (Initial commit for solution)
 =======
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -172,6 +185,7 @@ ALTER TABLE `financialtransactions`
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> e320c42 (Initial commit for solution)
 =======
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
@@ -191,6 +205,9 @@ ALTER TABLE `financialtransactions`
 >>>>>>> 3046af3 (Initial commit for solution)
 =======
 >>>>>>> c3979fd (Fix merge conflicts)
+=======
+>>>>>>> e320c42 (Initial commit for solution)
+>>>>>>> fa3e19f (Initial commit for solution)
 
 -- --------------------------------------------------------
 
@@ -198,8 +215,10 @@ ALTER TABLE `financialtransactions`
 -- Contraintes pour la table `transactionmessages`
 --
 ALTER TABLE `transactionmessages`
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -225,6 +244,17 @@ ALTER TABLE `transactionmessages`
 <<<<<<< HEAD
 =======
 >>>>>>> 3046af3 (Initial commit for solution)
+=======
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
+>>>>>>> 55e414e (Normalize database bootstrap)
+>>>>>>> fa3e19f (Initial commit for solution)
 =======
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -232,6 +262,7 @@ ALTER TABLE `transactionmessages`
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> e320c42 (Initial commit for solution)
 =======
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
@@ -251,6 +282,9 @@ ALTER TABLE `transactionmessages`
 >>>>>>> 3046af3 (Initial commit for solution)
 =======
 >>>>>>> c3979fd (Fix merge conflicts)
+=======
+>>>>>>> e320c42 (Initial commit for solution)
+>>>>>>> fa3e19f (Initial commit for solution)
 
 -- --------------------------------------------------------
 
