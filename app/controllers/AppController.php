@@ -4,18 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-<<<<<<< HEAD
 use \App\Helpers\FlashNotificationHelper;
 use \App\Libs\SessionSecurityHandler;
 use \Core\Controller;
 use \Core\View;
 
 abstract class AppController extends Controller
-=======
-use App\Libs\SessionSecurityHandler;
-
-abstract class AppController extends \Core\Controller
->>>>>>> 63be35a (Initial commit for solution)
 {
     protected \Core\View $view;
     protected \App\Helpers\FlashNotificationHelper $flash;
