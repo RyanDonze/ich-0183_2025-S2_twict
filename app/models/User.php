@@ -97,9 +97,7 @@ class User extends Model
         $db = static::getDB();
 
         $model = $db
-            ->query(<<< SQL
-                SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
-                FROM `users`
+            ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `mailAddress`= '{$mailAddress}'
                 LIMIT 1;
                 SQL)
