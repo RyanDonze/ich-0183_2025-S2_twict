@@ -66,6 +66,7 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
+
         $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
             WHERE `id` = :id
             LIMIT 1;
