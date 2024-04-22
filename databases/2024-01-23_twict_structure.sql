@@ -12,56 +12,51 @@ USE `twict`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `bankaccount`
+-- Structure de la table `bankaccounts`
 --
 
-DROP TABLE IF EXISTS `bankaccount`;
-CREATE TABLE IF NOT EXISTS `bankaccount` (
+DROP TABLE IF EXISTS `bankaccounts`;
+CREATE TABLE IF NOT EXISTS `bankaccounts` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `idOwner` int UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_BankAccount_Users_idx` (`idOwner`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `financialtransaction`
+-- Structure de la table `financialtransactions`
 --
 
-DROP TABLE IF EXISTS `financialtransaction`;
-CREATE TABLE IF NOT EXISTS `financialtransaction` (
+DROP TABLE IF EXISTS `financialtransactions`;
+CREATE TABLE IF NOT EXISTS `financialtransactions` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `amount` double DEFAULT NULL,
+  `amount` decimal(15,2) DEFAULT NULL,
   `idSender` int UNSIGNED NOT NULL,
   `idRecipient` int UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_FinancialTransaction_BankAccount1_idx` (`idSender`),
-  KEY `fk_FinancialTransaction_BankAccount2_idx` (`idRecipient`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `transactionmessage`
+-- Structure de la table `transactionmessages`
 --
 
-DROP TABLE IF EXISTS `transactionmessage`;
-CREATE TABLE IF NOT EXISTS `transactionmessage` (
+DROP TABLE IF EXISTS `transactionmessages`;
+CREATE TABLE IF NOT EXISTS `transactionmessages` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `idTransaction` int UNSIGNED NOT NULL,
   `idAuthor` int UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_TransactionMessage_FinancialTransaction1_idx` (`idTransaction`),
-  KEY `fk_TransactionMessage_Users1_idx` (`idAuthor`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -80,7 +75,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Déchargement des données de la table `users`
@@ -91,27 +88,41 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `mailAddress`, `password`, `
 (2, 'Béatrice', 'Blanc', 'beatrice.blanc@twict.dev', '', '2023-02-15 00:00:00', '2023-02-15 11:04:14'),
 (3, 'Clément', 'Chevalier', 'clement.chevalier@twict.dev', NULL, '2023-02-15 00:00:00', '2023-02-15 00:00:00');
 
---
--- Contraintes pour les tables déchargées
---
+-- --------------------------------------------------------
 
 --
--- Contraintes pour la table `bankaccount`
+-- Contraintes pour la table `bankaccounts`
 --
-ALTER TABLE `bankaccount`
-  ADD CONSTRAINT `fk_BankAccount_Users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`);
+ALTER TABLE `bankaccounts`
+  ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`);
+
+-- --------------------------------------------------------
 
 --
--- Contraintes pour la table `financialtransaction`
+-- Contraintes pour la table `financialtransactions`
 --
-ALTER TABLE `financialtransaction`
-  ADD CONSTRAINT `fk_FinancialTransaction_BankAccount1` FOREIGN KEY (`idSender`) REFERENCES `bankaccount` (`id`),
-  ADD CONSTRAINT `fk_FinancialTransaction_BankAccount2` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccount` (`id`);
+ALTER TABLE `financialtransactions`
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`);
+
+-- --------------------------------------------------------
 
 --
--- Contraintes pour la table `transactionmessage`
+-- Contraintes pour la table `transactionmessages`
 --
-ALTER TABLE `transactionmessage`
-  ADD CONSTRAINT `fk_TransactionMessage_FinancialTransaction1` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransaction` (`id`),
-  ADD CONSTRAINT `fk_TransactionMessage_Users1` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
+ALTER TABLE `transactionmessages`
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
+
+-- --------------------------------------------------------
+
+--
+-- Contraintes pour la table `users`
+--
+
+ALTER TABLE `users`
+  ADD UNIQUE(`mailAddress`);
+
+-- --------------------------------------------------------
+
 COMMIT;
