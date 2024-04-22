@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-class AuthController extends \App\Controllers\AppController
+class AuthController extends AppController
 {
     public function index(): void
     {

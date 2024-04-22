@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\User;
+use \App\Models\User;
 
-class AuthBasicController extends \App\Controllers\AppController
+class AuthBasicController extends AppController
 {
     private const REALM = 'oPh?\dRG>B413a;E:5';
 
