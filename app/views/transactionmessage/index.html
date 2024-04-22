@@ -1,0 +1,42 @@
+{% extends "layout/base" %}
+
+{% block title %}Liste des messages de transactions{% endblock %}
+
+{% block content %}
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>Liste des messages de transactions</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Transaction</th>
+                            <th scope="col">Auteur</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% foreach($this.transactionMessages as $transactionMessage): %}
+                        <tr>
+                            <th scope="row">{{ $transactionMessage.idTransactionMessage }}</th>
+                            <td>{{ $transactionMessage.transaction.sender.owner.firstname }} {{ $transactionMessage.transaction.sender.owner.lastname }} ({{ $transactionMessage.transaction.sender.owner.mailAddress }}) - {{ $transactionMessage.transaction.sender.description }} -> {{ $transactionMessage.transaction.recipient.owner.firstname }} {{ $transactionMessage.transaction.recipient.owner.lastname }} ({{ $transactionMessage.transaction.recipient.owner.mailAddress }}) - {{ $transactionMessage.transaction.recipient.description }}</td>
+                            <td>{{ $transactionMessage.author.firstname }} {{ $transactionMessage.author.lastname }} ({{ $transactionMessage.author.mailAddress }})</td>
+                            <td>
+                                <a href="/transactionMessage/details?id={{ $transactionMessage.id }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Details</a>
+                                <a href="/transactionMessage/edit?id={{ $transactionMessage.id }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Edit</a>
+                                <a href="/transactionMessage/remove?id={{ $transactionMessage.id }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Remove</a>
+                            </td>
+                        </tr>
+                        {% endforeach %}
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <a href="/transactionMessage/add" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Ajouter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

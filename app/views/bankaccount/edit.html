@@ -1,0 +1,41 @@
+{% extends "layout/base" %}
+
+{% block title %}Edition d'un compte bancaire{% endblock %}
+
+{% block content %}
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>Edition d'un compte bancaire</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="bankAccount_id">ID</label>
+                        <input type="text" class="form-control" id="bankAccount_id" name="bankAccount[id]" readonly value="{{ $this.bankAccount.id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="idOwner">Propriétaire</label>
+                        <select class="form-select" id="idOwner" name="bankAccount[idOwner]">
+                            {% foreach ($this.availableOwners as $availableOwner): %}
+                            {% $selected = '' %}
+                            {% if ($availableOwner.id == $this.bankAccount.idOwner): %}
+                            {% $selected = 'selected' %}
+                            {% endif %}
+                            <option value="{{ $availableOwner.id }}" {{ $selected }}>{{ $availableOwner.firstname }} {{ $availableOwner.lastname }} ({{ $availableOwner.mailAddress }})</option>
+                            {% endforeach %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bankAccount_description">Description</label>
+                        <input type="text" class="form-control" id="bankAccount_description" name="bankAccount[description]" placeholder="Description" value="{{ $this.bankAccount.description }}">
+                    </div>
+                    <div class="form-group">
+                        <a href="javascript:history.back()" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">Sauver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -94,7 +94,7 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `mailAddress`, `password`, `
 -- Contraintes pour la table `bankaccounts`
 --
 ALTER TABLE `bankaccounts`
-  ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- --------------------------------------------------------
 
@@ -102,8 +102,8 @@ ALTER TABLE `bankaccounts`
 -- Contraintes pour la table `financialtransactions`
 --
 ALTER TABLE `financialtransactions`
-  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
-  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`);
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- --------------------------------------------------------
 
@@ -111,8 +111,8 @@ ALTER TABLE `financialtransactions`
 -- Contraintes pour la table `transactionmessages`
 --
 ALTER TABLE `transactionmessages`
-  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
-  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- --------------------------------------------------------
 

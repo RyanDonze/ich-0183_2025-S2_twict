@@ -14,6 +14,12 @@ class UserController extends AppController
         $this->view['users'] = $users;
     }
 
+    public function details(): void
+    {
+        $idUser = (int)$_GET['id'];
+        $this->view['user'] = User::find($idUser);
+    }
+
     public function add(): void
     {
     }

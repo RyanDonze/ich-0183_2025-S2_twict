@@ -8,15 +8,20 @@ use \Core\Model;
 
 class User extends Model
 {
+    protected const QUERY_SELECT = <<< SQL
+        SELECT *
+        FROM (
+            SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
+            FROM `users`
+        ) AS `users`
+        SQL;
+
     public static function getAll(): array
     {
         $db = static::getDB();
 
         $models = $db
-            ->query(<<< SQL
-                SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
-                FROM `users`;
-            SQL)
+            ->query(self::QUERY_SELECT)
             ->fetchAll();
 
         return $models;
@@ -27,9 +32,7 @@ class User extends Model
         $db = static::getDB();
 
         $model = $db
-            ->query(<<< SQL
-                SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
-                FROM `users`
+            ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `id` = {$id}
                 LIMIT 1;
             SQL)
@@ -94,9 +97,7 @@ class User extends Model
         $db = static::getDB();
 
         $model = $db
-            ->query(<<< SQL
-                SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
-                FROM `users`
+            ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `mailAddress`= '{$mailAddress}'
                 LIMIT 1;
                 SQL)
@@ -110,9 +111,7 @@ class User extends Model
         $db = static::getDB();
 
         $model = $db
-            ->query(<<< SQL
-                SELECT `id`, `firstname`, `lastname`, `mailAddress`, `password`, `createdAt`, `updatedAt`
-                FROM `users`
+            ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `mailAddress`= '{$mailAddress}'
                 AND `password`= '{$password}'
                 LIMIT 1;
