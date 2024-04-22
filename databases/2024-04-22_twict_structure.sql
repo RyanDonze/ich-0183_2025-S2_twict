@@ -138,8 +138,13 @@ ALTER TABLE `bankaccounts`
 -- Contraintes pour la table `financialtransactions`
 --
 ALTER TABLE `financialtransactions`
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`);
+>>>>>>> 55e414e (Normalize database bootstrap)
 
 -- --------------------------------------------------------
 
@@ -147,8 +152,13 @@ ALTER TABLE `financialtransactions`
 -- Contraintes pour la table `transactionmessages`
 --
 ALTER TABLE `transactionmessages`
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
+>>>>>>> 55e414e (Normalize database bootstrap)
 
 -- --------------------------------------------------------
 
