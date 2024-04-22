@@ -105,7 +105,6 @@ ALTER TABLE `financialtransactions`
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-
 -- --------------------------------------------------------
 
 --
