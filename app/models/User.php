@@ -110,6 +110,7 @@ class User extends AppModel
     {
         $db = static::getDB();
 
+<<<<<<< HEAD
         $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
             WHERE `mailAddress`= :mailAddress
             LIMIT 1;
@@ -119,6 +120,14 @@ class User extends AppModel
         $stmt->execute();
 
         $model = $stmt->fetch() ?: null;
+=======
+        $model = $db
+            ->query(self::QUERY_SELECT . <<< SQL
+                WHERE `mailAddress`= '{$mailAddress}'
+                LIMIT 1;
+                SQL)
+            ->fetch() ?: null;
+>>>>>>> 379b884 (Initial commit for solution)
 
         return $model;
     }
