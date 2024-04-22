@@ -7,7 +7,7 @@ namespace App\Controllers;
 use App\Libs\HttpDigestAuthParser;
 use App\Models\User;
 
-class AuthDigestController extends \App\Controllers\AppController
+class AuthDigestController extends AppController
 {
     private const REALM = 'XiOXIvsHBuRMDBvMTF';
 
