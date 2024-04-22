@@ -144,6 +144,7 @@ ALTER TABLE `financialtransactions`
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 =======
@@ -155,6 +156,11 @@ ALTER TABLE `financialtransactions`
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 >>>>>>> 20f7ed4 (Initial commit for solution)
 >>>>>>> e320c42 (Initial commit for solution)
+=======
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`),
+  ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`);
+>>>>>>> 55e414e (Normalize database bootstrap)
+>>>>>>> 5ac6c83 (Normalize database bootstrap)
 
 -- --------------------------------------------------------
 
@@ -168,6 +174,7 @@ ALTER TABLE `transactionmessages`
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 =======
@@ -179,6 +186,11 @@ ALTER TABLE `transactionmessages`
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 >>>>>>> 20f7ed4 (Initial commit for solution)
 >>>>>>> e320c42 (Initial commit for solution)
+=======
+  ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`),
+  ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`);
+>>>>>>> 55e414e (Normalize database bootstrap)
+>>>>>>> 5ac6c83 (Normalize database bootstrap)
 
 -- --------------------------------------------------------
 
