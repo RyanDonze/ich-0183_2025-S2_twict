@@ -160,8 +160,6 @@ class FinancialTransaction extends AppModel
 
         $models = self::expandRelationships($models);
 
-        $models = self::expandRelationships($models);
-
         return $models;
     }
 }
