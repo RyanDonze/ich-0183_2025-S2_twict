@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-<<<<<<< HEAD
 use \App\Helpers\FlashNotificationHelper;
 use \App\Libs\SessionSecurityHandler;
 use \Core\Controller;
@@ -15,15 +14,6 @@ abstract class AppController extends Controller
     protected View $view;
     protected FlashNotificationHelper $flash;
     protected SessionSecurityHandler $sessionSecurityHandler;
-=======
-use App\Libs\SessionSecurityHandler;
-
-abstract class AppController extends \Core\Controller
-{
-    protected \Core\View $view;
-    protected \App\Helpers\FlashNotificationHelper $flash;
-    protected \App\Libs\SessionSecurityHandler $sessionSecurityHandler;
->>>>>>> 63be35a (Initial commit for solution)
 
     protected function before(): bool
     {
@@ -33,14 +23,6 @@ abstract class AppController extends \Core\Controller
         $this->flash = new FlashNotificationHelper();
 
         $this->sessionSecurityHandler = new SessionSecurityHandler();
-        $this->sessionSecurityHandler->startSession();
-
-        if ($this->sessionSecurityHandler->verifySecurityToken() === false) {
-            http_response_code(401);
-            return false;
-        }
-
-        $this->sessionSecurityHandler = new \App\Libs\SessionSecurityHandler();
         $this->sessionSecurityHandler->startSession();
 
         if ($this->sessionSecurityHandler->verifySecurityToken() === false) {
