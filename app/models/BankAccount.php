@@ -138,7 +138,11 @@ class BankAccount extends AppModel
         $stmt->bindParam(':idOwner', $idOwner, PDO::PARAM_INT);
         $stmt->execute();
 
+<<<<<<< HEAD
         $models = $stmt->fetchAll();
+=======
+        $models = $stmt->fetchAll() ?: null;
+>>>>>>> 4118003 (Initial commit for solution)
 
         $models = self::expandRelationships($models);
 
