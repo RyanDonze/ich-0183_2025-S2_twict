@@ -20,9 +20,10 @@ class User extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
 
         return $models;
     }
@@ -31,12 +32,15 @@ class User extends AppModel
     {
         $db = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `id` = {$id}
-                LIMIT 1;
-            SQL)
-            ->fetch() ?: null;
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `id` = :id
+            LIMIT 1;
+        SQL);
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $model = $stmt->fetch() ?: null;
 
         return $model;
     }
@@ -64,6 +68,7 @@ class User extends AppModel
     public static function update(array $model): bool
     {
         $db = static::getDB();
+
         $stmt = $db->prepare(<<< SQL
             UPDATE `users` SET
                 `firstname` = :firstname
@@ -105,12 +110,15 @@ class User extends AppModel
     {
         $db = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `mailAddress`= '{$mailAddress}'
-                LIMIT 1;
-                SQL)
-            ->fetch() ?: null;
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `mailAddress`= :mailAddress
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':mailAddress', $mailAddress, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $model = $stmt->fetch() ?: null;
 
         return $model;
     }
@@ -119,13 +127,17 @@ class User extends AppModel
     {
         $db = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `mailAddress`= '{$mailAddress}'
-                AND `password`= '{$password}'
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+                WHERE `mailAddress` = :mailAddress
+                AND `password`= :password
                 LIMIT 1;
-                SQL)
-            ->fetch() ?: null;
+                SQL);
+
+        $stmt->bindParam(':mailAddress', $mailAddress, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $model = $stmt->fetch() ?: null;
 
         return $model;
     }

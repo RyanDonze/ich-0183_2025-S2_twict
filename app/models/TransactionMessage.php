@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use PDO;
+
 class TransactionMessage extends AppModel
 {
     protected const QUERY_SELECT = <<< SQL
@@ -50,9 +52,10 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
 
         $models = self::expandRelationships($models);
 
@@ -63,12 +66,15 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `id` = {$id}
-                LIMIT 1
-            SQL)
-            ->fetch() ?: null;
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $model = $stmt->fetch() ?: null;
 
         $model = self::expandRelationships($model);
 
@@ -79,14 +85,17 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                INSERT INTO `transactionmessages` 
-                    (`content`, `idTransaction`, `idAuthor`) 
-                VALUES
-                    ('{$model['content']}', {$model['idTransaction']}, {$model['idAuthor']})
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            INSERT INTO `transactionmessages` 
+                (`content`, `idTransaction`, `idAuthor`) 
+            VALUES
+                (:content, :idTransaction, :idAuthor);
+            SQL);
+
+        $stmt->bindParam(':content', $model['content'], PDO::PARAM_STR);
+        $stmt->bindParam(':idTransaction', $model['idTransaction'], PDO::PARAM_INT);
+        $stmt->bindParam(':idAuthor', $model['idAuthor'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -95,17 +104,21 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                UPDATE `transactionmessages` SET
-                    `content` = '{$model['content']}'
-                    , `idTransaction` = {$model['idTransaction']}
-                    , `idAuthor` = {$model['idAuthor']}
-                    , `updatedAt` = CURRENT_TIMESTAMP
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            UPDATE `transactionmessages` SET
+                `content` = :content
+                , `idTransaction` = :idTransaction
+                , `idAuthor` = :idAuthor
+                , `updatedAt` = CURRENT_TIMESTAMP
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':content', $model['content'], PDO::PARAM_STR);
+        $stmt->bindParam(':idTransaction', $model['idTransaction'], PDO::PARAM_INT);
+        $stmt->bindParam(':idAuthor', $model['idAuthor'], PDO::PARAM_INT);
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -114,13 +127,14 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                DELETE FROM `transactionmessages`
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            DELETE FROM `transactionmessages`
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
