@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use PDO;
+
 class BankAccount extends AppModel
 {
     protected const QUERY_SELECT = <<< SQL
@@ -41,9 +43,10 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
 
         $models = self::expandRelationships($models);
 
@@ -54,12 +57,15 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `id` = {$id}
-                LIMIT 1;
-            SQL)
-            ->fetch() ?: null;
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $model = $stmt->fetch() ?: null;
 
         $model = self::expandRelationships($model);
 
@@ -70,14 +76,16 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                INSERT INTO `bankaccounts` 
-                    (`description`, `idOwner`) 
-                VALUES
-                    ('{$model['description']}', {$model['idOwner']})
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            INSERT INTO `bankaccounts` 
+                (`description`, `idOwner`) 
+            VALUES
+                (:description, :idOwner);
+            SQL);
+
+        $stmt->bindParam(':description', $model['description'], PDO::PARAM_STR);
+        $stmt->bindParam(':idOwner', $model['idOwner'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -86,16 +94,19 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                UPDATE `bankaccounts` SET
-                    `description` = '{$model['description']}'
-                    , `idOwner` = {$model['idOwner']}
-                    , `updatedAt` = CURRENT_TIMESTAMP
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            UPDATE `bankaccounts` SET
+                `description` = :description
+                , `idOwner` = :idOwner
+                , `updatedAt` = CURRENT_TIMESTAMP
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':description', $model['description'], PDO::PARAM_STR);
+        $stmt->bindParam(':idOwner', $model['idOwner'], PDO::PARAM_STR);
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_STR);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -104,13 +115,14 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
+        $stmt = $db->prepare(<<< SQL
                 DELETE FROM `bankaccounts`
-                WHERE `id` = {$model['id']}
-                LIMIT 1
-                SQL)
-            ->execute();
+                WHERE `id` = :id
+                LIMIT 1;
+                SQL);
+
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -119,11 +131,22 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
+<<<<<<< HEAD
         $models = $db
             ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `idOwner`= {$idOwner}
             SQL)
             ->fetchAll();
+=======
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `idOwner`= :idOwner
+            SQL);
+
+        $stmt->bindParam(':idOwner', $idOwner, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll() ?: null;
+>>>>>>> 4118003 (Initial commit for solution)
 
         $models = self::expandRelationships($models);
 

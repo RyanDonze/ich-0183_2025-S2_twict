@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use PDO;
+
 class FinancialTransaction extends AppModel
 {
     protected const QUERY_SELECT = <<< SQL
@@ -38,9 +40,10 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
 
         $models = self::expandRelationships($models);
 
@@ -51,12 +54,15 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `id` = {$id}
-                LIMIT 1
-            SQL)
-            ->fetch() ?: null;
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $model = $stmt->fetch() ?: null;
 
         $model = self::expandRelationships($model);
 
@@ -67,14 +73,17 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                INSERT INTO `financialtransactions` 
-                    (`amount`, `idSender`, `idRecipient`) 
-                VALUES
-                    ({$model['amount']}, {$model['idSender']}, {$model['idRecipient']})
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            INSERT INTO `financialtransactions` 
+                (`amount`, `idSender`, `idRecipient`) 
+            VALUES
+                (:amount, :idSender, :idRecipient);
+            SQL);
+
+        $stmt->bindParam(':amount', $model['amount'], PDO::PARAM_STR);
+        $stmt->bindParam(':idSender', $model['idSender'], PDO::PARAM_INT);
+        $stmt->bindParam(':idRecipient', $model['idRecipient'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -83,17 +92,21 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                UPDATE `financialtransactions` SET
-                    `amount` = {$model['amount']}
-                    , `idSender` = {$model['idSender']}
-                    , `idRecipient` = {$model['idRecipient']}
-                    , `updatedAt` = CURRENT_TIMESTAMP
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            UPDATE `financialtransactions` SET
+                `amount` = :amount
+                , `idSender` = :idSender
+                , `idRecipient` = :idRecipient
+                , `updatedAt` = CURRENT_TIMESTAMP
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':amount', $model['amount'], PDO::PARAM_STR);
+        $stmt->bindParam(':idSender', $model['idSender'], PDO::PARAM_INT);
+        $stmt->bindParam(':idRecipient', $model['idRecipient'], PDO::PARAM_INT);
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -102,13 +115,14 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $success = $db
-            ->prepare(<<< SQL
-                DELETE FROM `financialtransactions`
-                WHERE `id` = {$model['id']}
-                LIMIT 1;
-            SQL)
-            ->execute();
+        $stmt = $db->prepare(<<< SQL
+            DELETE FROM `financialtransactions`
+            WHERE `id` = :id
+            LIMIT 1;
+            SQL);
+
+        $stmt->bindParam(':id', $model['id'], PDO::PARAM_INT);
+        $success = $stmt->execute();
 
         return $success;
     }
@@ -132,11 +146,16 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `idRecipient`= {$idRecipient}
-            SQL)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+                WHERE `idRecipient` = :idRecipient
+            SQL);
+
+        $stmt->bindParam(':idRecipient', $idRecipient, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
+
+        $models = self::expandRelationships($models);
 
         $models = self::expandRelationships($models);
 
