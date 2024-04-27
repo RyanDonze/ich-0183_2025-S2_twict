@@ -11,6 +11,7 @@
                 <p>Etes-vous sûr de vouloir vous déconnecter ?</p>
                 <form method="post">
                     <div class="form-group">
+                        <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                         <a href="/auth" class="btn btn-secondary">Retour</a>
                         <button type="submit" class="btn btn-primary">Déconnexion</button>
                     </div>

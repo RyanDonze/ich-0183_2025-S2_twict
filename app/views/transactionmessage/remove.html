@@ -30,6 +30,7 @@
                         <textarea class="form-control" id="transactionMessage_content" name="transactionMessage[content]" readonly placeholder="Contenu">{{ $this.transactionMessage.content }}</textarea>
                     </div>
                     <div class="form-group">
+                        <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                         <a href="javascript:history.back()" class="btn btn-secondary">Annuler</a>
                         <button type="submit" class="btn btn-danger">Supprimer</button>
                     </div>

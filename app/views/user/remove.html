@@ -25,6 +25,8 @@
                         <label for="user_mailAddress">Adresse email</label>
                         <input type="email" class="form-control" id="user_mailAddress" name="user[mailAddress]" readonly="readonly" placeholder="Adresse email" value="{{ $this.user.mailAddress }}">
                     </div>
+
+                    <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                     <a href="/user/index" class="btn btn-secondary">Annuler</a>
                     <button type="submit" class="btn btn-danger">Supprimer</button>
                 </form>

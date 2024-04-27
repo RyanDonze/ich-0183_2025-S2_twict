@@ -31,6 +31,7 @@
                         <input type="text" class="form-control" id="financialTransaction_amount" name="financialTransaction[amount]" readonly placeholder="Montant" value="{{ $this.financialTransaction.amount }}">
                     </div>
                     <div class="form-group">
+                        <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                         <a href="javascript:history.back()" class="btn btn-secondary">Annuler</a>
                         <button type="submit" class="btn btn-danger">Supprimer</button>
                     </div>

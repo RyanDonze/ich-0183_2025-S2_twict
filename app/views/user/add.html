@@ -26,6 +26,7 @@
                         <input type="password" class="form-control" id="user_password" name="user[password]" placeholder="Mot de passe" value="{{ $this.user.password }}">
                     </div>
                     <div class="form-group">
+                        <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                         <a href="/user/index" class="btn btn-secondary">Annuler</a>
                         <button type="submit" class="btn btn-primary">Sauver</button>
                     </div>
