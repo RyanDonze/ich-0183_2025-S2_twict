@@ -47,6 +47,8 @@ class User extends AppModel
 
     public static function add(array $model): bool
     {
+        $model['password'] = self::encryptPassword($model['password']);
+
         $db = static::getDB();
 
         $stmt = $db->prepare(<<<SQL
@@ -67,6 +69,8 @@ class User extends AppModel
 
     public static function update(array $model): bool
     {
+        $model['password'] = self::encryptPassword($model['password']);
+
         $db = static::getDB();
 
         $stmt = $db->prepare(<<< SQL
@@ -125,20 +129,28 @@ class User extends AppModel
 
     public static function findByMailAddressAndPassword(string $mailAddress, string $password): ?array
     {
-        $db = static::getDB();
+        $model = self::findByMailAddress($mailAddress);
 
-        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
-                WHERE `mailAddress` = :mailAddress
-                AND `password`= :password
-                LIMIT 1;
-                SQL);
+        if ($model === null) {
+            return null;
+        }
 
-        $stmt->bindParam(':mailAddress', $mailAddress, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $model = $stmt->fetch() ?: null;
+        if (self::verifyPassword($password, $model['password']) === false) {
+            return null;
+        }
 
         return $model;
+    }
+
+    private static function encryptPassword(string $password): string
+    {
+        return password_hash($password,  PASSWORD_BCRYPT, [
+            'cost' => 12
+        ]);
+    }
+
+    private static function verifyPassword(string $password, string $hash): bool
+    {
+        return password_verify($password, $hash);
     }
 }
