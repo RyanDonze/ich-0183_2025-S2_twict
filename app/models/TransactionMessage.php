@@ -133,7 +133,7 @@ class TransactionMessage extends AppModel
             ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `idTransaction` = {$idTransaction}
             SQL)
-            ->fetchAll() ?: null;
+            ->fetchAll();
 
         $models = self::expandRelationships($models);
 

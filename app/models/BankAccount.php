@@ -123,7 +123,7 @@ class BankAccount extends AppModel
             ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `idOwner`= {$idOwner}
             SQL)
-            ->fetchAll() ?: null;
+            ->fetchAll();
 
         $models = self::expandRelationships($models);
 

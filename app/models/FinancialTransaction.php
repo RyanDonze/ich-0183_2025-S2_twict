@@ -121,7 +121,7 @@ class FinancialTransaction extends AppModel
             ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `idSender`= {$idSender}
             SQL)
-            ->fetchAll() ?: null;
+            ->fetchAll();
 
         $models = self::expandRelationships($models);
 
@@ -136,7 +136,7 @@ class FinancialTransaction extends AppModel
             ->query(self::QUERY_SELECT . <<< SQL
                 WHERE `idRecipient`= {$idRecipient}
             SQL)
-            ->fetchAll() ?: null;
+            ->fetchAll();
 
         $models = self::expandRelationships($models);
 
