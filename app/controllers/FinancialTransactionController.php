@@ -28,6 +28,8 @@ class FinancialTransactionController extends AppController
     public function add(): void
     {
         $this->view['availableBankAccounts'] = BankAccount::getAll();
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function add_post(): void
@@ -45,6 +47,8 @@ class FinancialTransactionController extends AppController
         $this->view['financialTransaction'] = FinancialTransaction::find($financialTransactionId);
 
         $this->view['availableBankAccounts'] = BankAccount::getAll();
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function edit_post(): void
@@ -60,6 +64,8 @@ class FinancialTransactionController extends AppController
     {
         $financialTransactionId = (int)$_GET['id'];
         $this->view['financialTransaction'] = FinancialTransaction::find($financialTransactionId);
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function remove_post(): void

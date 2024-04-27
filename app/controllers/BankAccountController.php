@@ -25,6 +25,8 @@ class BankAccountController extends AppController
     public function add(): void
     {
         $this->view['availableOwners'] = User::getAll();
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function add_post(): void
@@ -42,6 +44,8 @@ class BankAccountController extends AppController
         $bankAccountId = (int)$_GET['id'];
         $this->view['bankAccount'] = BankAccount::find($bankAccountId);
         $this->view['availableOwners'] = User::getAll();
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function edit_post(): void
@@ -57,6 +61,8 @@ class BankAccountController extends AppController
     {
         $bankAccountId = (int)$_GET['id'];
         $this->view['bankAccount'] = BankAccount::find($bankAccountId);
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function remove_post(): void

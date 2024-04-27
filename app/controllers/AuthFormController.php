@@ -14,6 +14,8 @@ class AuthFormController extends AppController
             $this->flash->warning('Vous êtes déjà connecté.');
             $this->redirect('/auth');
         }
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function login_post(): void
@@ -42,6 +44,8 @@ class AuthFormController extends AppController
             $this->flash->warning('Vous n\'êtes pas connecté.');
             $this->redirect('/auth');
         }
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function logout_post(): void

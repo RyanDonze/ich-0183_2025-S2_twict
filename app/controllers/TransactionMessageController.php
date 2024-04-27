@@ -29,6 +29,8 @@ class TransactionMessageController extends AppController
     {
         $this->view['availableAuthors'] = User::getAll();
         $this->view['availableTransactions'] = FinancialTransaction::getAll();
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function add_post(): void
@@ -47,6 +49,8 @@ class TransactionMessageController extends AppController
 
         $this->view['availableAuthors'] = User::getAll();
         $this->view['availableTransactions'] = FinancialTransaction::getAll();
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function edit_post(): void
@@ -62,6 +66,8 @@ class TransactionMessageController extends AppController
     {
         $transactionMessageId = (int)$_GET['id'];
         $this->view['transactionMessage'] = TransactionMessage::find($transactionMessageId);
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function remove_post(): void

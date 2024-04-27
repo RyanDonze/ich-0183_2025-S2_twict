@@ -11,15 +11,14 @@
                 <form method="post">
                     <div class="form-group">
                         <label for="user_mailAddress">Adresse email</label>
-                        <input type="text" class="form-control" id="user_mailAddress" name="user[mailAddress]"
-                            placeholder="Adresse email" value="">
+                        <input type="text" class="form-control" id="user_mailAddress" name="user[mailAddress]" placeholder="Adresse email" value="">
                     </div>
                     <div class="form-group">
                         <label for="user_password">Mot de passe</label>
-                        <input type="password" class="form-control" id="user_password" name="user[password]"
-                            placeholder="Mot de passe" value="">
+                        <input type="password" class="form-control" id="user_password" name="user[password]" placeholder="Mot de passe" value="">
                     </div>
                     <div class="form-group">
+                        <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                         <a href="/auth" class="btn btn-secondary">Retour</a>
                         <button type="submit" class="btn btn-primary">Connexion</button>
                     </div>

@@ -22,6 +22,7 @@ class UserController extends AppController
 
     public function add(): void
     {
+        $this->csrfSecurityHandler->create();
     }
 
     public function add_post(): void
@@ -38,6 +39,8 @@ class UserController extends AppController
     {
         $id = (int)$_GET['id'];
         $this->view['user'] = User::find($id);
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function edit_post(): void
@@ -54,6 +57,8 @@ class UserController extends AppController
     {
         $userId = (int)$_GET['id'];
         $this->view['user'] = User::find($userId);
+
+        $this->csrfSecurityHandler->create();
     }
 
     public function remove_post(): void

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use \App\Helpers\FlashNotificationHelper;
+use \App\Libs\CSRFSecurityHandler;
 use \App\Libs\SessionSecurityHandler;
 use \Core\Controller;
 use \Core\View;
@@ -14,6 +15,7 @@ abstract class AppController extends Controller
     protected \Core\View $view;
     protected \App\Helpers\FlashNotificationHelper $flash;
     protected \App\Libs\SessionSecurityHandler $sessionSecurityHandler;
+    protected \App\Libs\CSRFSecurityHandler $csrfSecurityHandler;
 
     protected function before(): bool
     {
@@ -30,6 +32,16 @@ abstract class AppController extends Controller
             return false;
         }
 
+
+        $this->csrfSecurityHandler = new CSRFSecurityHandler();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->csrfSecurityHandler->verifyCsrfToken($_POST) === false) {
+                http_response_code(401);
+                return false;
+            }
+        }
+
         return parent::before();
     }
 
@@ -39,6 +51,7 @@ abstract class AppController extends Controller
         $this->view['debug.cookie'] = $_COOKIE;
 
         $this->flash->flush($this->view);
+        $this->csrfSecurityHandler->flush($this->view);
         $this->view->render();
 
         parent::after();

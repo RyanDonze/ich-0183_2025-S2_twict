@@ -24,6 +24,7 @@
                         <input type="text" class="form-control" id="bankAccount_description" name="bankAccount[description]" readonly placeholder="Description" value="{{ $this.bankAccount.description }}">
                     </div>
                     <div class="form-group">
+                        <input type="hidden" name="{{ $this.csrf.key }}" value="{{ $this.csrf.value }}">
                         <a href="javascript:history.back()" class="btn btn-secondary">Annuler</a>
                         <button type="submit" class="btn btn-danger">Supprimer</button>
                     </div>
