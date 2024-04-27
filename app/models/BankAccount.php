@@ -27,7 +27,7 @@ class BankAccount extends AppModel
                 `fts`.`idSender` AS `idBankAccount`
                 , `fts`.`amount` * -1 AS `amount`
                 FROM `financialtransactions` AS `fts`
-                UNION
+                UNION ALL
                 SELECT 
                 `ftr`.`idRecipient` AS `idBankAccount`
                 , `ftr`.`amount` AS `amount`
