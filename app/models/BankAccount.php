@@ -131,13 +131,6 @@ class BankAccount extends AppModel
     {
         $db = static::getDB();
 
-<<<<<<< HEAD
-        $models = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `idOwner`= {$idOwner}
-            SQL)
-            ->fetchAll();
-=======
         $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
             WHERE `idOwner`= :idOwner
             SQL);
@@ -145,8 +138,7 @@ class BankAccount extends AppModel
         $stmt->bindParam(':idOwner', $idOwner, PDO::PARAM_INT);
         $stmt->execute();
 
-        $models = $stmt->fetchAll() ?: null;
->>>>>>> 4118003 (Initial commit for solution)
+        $models = $stmt->fetchAll();
 
         $models = self::expandRelationships($models);
 

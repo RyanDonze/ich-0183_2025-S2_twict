@@ -143,11 +143,14 @@ class TransactionMessage extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `idTransaction` = {$idTransaction}
-            SQL)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `idTransaction` = :idTransaction
+            SQL);
+
+        $stmt->bindParam(':idTransaction', $idTransaction, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
 
         $models = self::expandRelationships($models);
 
