@@ -131,11 +131,14 @@ class FinancialTransaction extends AppModel
     {
         $db = static::getDB();
 
-        $models = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `idSender`= {$idSender}
-            SQL)
-            ->fetchAll();
+        $stmt = $db->prepare(self::QUERY_SELECT . <<< SQL
+            WHERE `idSender` = :idSender
+            SQL);
+
+        $stmt->bindParam(':idSender', $idSender, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $models = $stmt->fetchAll();
 
         $models = self::expandRelationships($models);
 
