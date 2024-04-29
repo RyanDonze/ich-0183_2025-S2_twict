@@ -95,21 +95,6 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `mailAddress`, `password`, `
 --
 ALTER TABLE `bankaccounts`
   ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-  ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
-<<<<<<< HEAD
-=======
-  ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`);
->>>>>>> 55e414e (Normalize database bootstrap)
-=======
-  ADD CONSTRAINT `fk_bankaccounts_users` FOREIGN KEY (`idOwner`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
->>>>>>> e320c42 (Initial commit for solution)
->>>>>>> 20f7ed4 (Initial commit for solution)
->>>>>>> df91416 (Initial commit for solution)
 
 -- --------------------------------------------------------
 
