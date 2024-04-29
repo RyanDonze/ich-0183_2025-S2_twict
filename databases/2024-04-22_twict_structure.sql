@@ -138,10 +138,9 @@ ALTER TABLE `bankaccounts`
 -- Contraintes pour la table `financialtransactions`
 --
 ALTER TABLE `financialtransactions`
-<<<<<<< HEAD
-<<<<<<< HEAD
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_sender` FOREIGN KEY (`idSender`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_financialtransactions_bankaccounts_recipient` FOREIGN KEY (`idRecipient`) REFERENCES `bankaccounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -190,6 +189,8 @@ ALTER TABLE `financialtransactions`
 >>>>>>> 5ac6c83 (Normalize database bootstrap)
 =======
 >>>>>>> 3046af3 (Initial commit for solution)
+=======
+>>>>>>> c3979fd (Fix merge conflicts)
 
 -- --------------------------------------------------------
 
@@ -197,10 +198,9 @@ ALTER TABLE `financialtransactions`
 -- Contraintes pour la table `transactionmessages`
 --
 ALTER TABLE `transactionmessages`
-<<<<<<< HEAD
-<<<<<<< HEAD
   ADD CONSTRAINT `fk_transactionmessages_financialtransactions` FOREIGN KEY (`idTransaction`) REFERENCES `financialtransactions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_transactionmessages_users` FOREIGN KEY (`idAuthor`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -249,6 +249,8 @@ ALTER TABLE `transactionmessages`
 >>>>>>> 5ac6c83 (Normalize database bootstrap)
 =======
 >>>>>>> 3046af3 (Initial commit for solution)
+=======
+>>>>>>> c3979fd (Fix merge conflicts)
 
 -- --------------------------------------------------------
 
