@@ -19,6 +19,21 @@ ini_set('error_log', dirname(__DIR__) . '/logs/' . date('Y-m-d') . '.log');
 $errorHandler = new Core\ErrorHandler();
 
 /**
+ * TLS Security
+ */
+header('Strict-Transport-Security: max-age= 31536000; includeSubDomains');
+if (
+    (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off')
+    && (empty($_SERVER['HTTP_X_FORWARDED_SSL']) || $_SERVER['HTTP_X_FORWARDED_SSL'] !== 'on')
+    && (empty($_SERVER['HTTP_X_FORWARDED_PROTO']) || $_SERVER['HTTP_X_FORWARDED_PROTO'] !== 'https')
+) {
+    header('HTTP/1.1 301 Moved Permanently');
+    header("Location: https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}");
+    exit;
+}
+
+
+/**
  * Routing
  */
 $router = new Core\Router();

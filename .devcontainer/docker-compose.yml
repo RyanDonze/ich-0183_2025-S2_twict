@@ -52,9 +52,14 @@ services:
 
     ports:
       - "80:80"
+      - "443:443"
+
+    environment:
+      HTTPS_METHOD: noredirect
 
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./config/nginx:/etc/nginx/certs
 
     depends_on:
       - app
