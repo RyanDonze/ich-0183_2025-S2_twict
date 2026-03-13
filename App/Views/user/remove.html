@@ -1,0 +1,24 @@
+{% extends "layout/base" %}
+
+{% block title %}Suppression d'un utilisateur{% endblock %}
+
+{% block content %}
+<section id="authentication" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>{{ block title }}</h2>
+                <p>Êtes vous sûr de vouloir supprimer l'utilisateur {{$this.user.firstname}} {{ $this.user.lastname
+                    }} ?</p>
+                <form method="post">
+                    <input type="hidden" name="user[id]" value="{{ $this.user.id }}">
+                    <div class="form-group">
+                        <a href="/user/index" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">Confirmer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
