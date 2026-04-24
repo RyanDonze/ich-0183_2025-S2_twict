@@ -23,6 +23,10 @@ abstract class AppController extends Controller
 
         $this->flash = new FlashNotificationHelper();
 
+        session_set_cookie_params([
+            'secure' => true,
+        ]);
+
         return parent::before();
     }
 
