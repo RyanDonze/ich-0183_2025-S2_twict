@@ -108,16 +108,22 @@ class User extends Model
 
     public static function findByMailAddressAndPassword(string $mailAddress, string $password): ?array
     {
-        $db = static::getDB();
+        $pdo = static::getDB();
 
-        $model = $db
-            ->query(self::QUERY_SELECT . <<< SQL
-                WHERE `mailAddress`= '{$mailAddress}'
-                AND `password`= '{$password}'
-                LIMIT 1;
-                SQL)
-            ->fetch() ?: null;
+        $stmt = $pdo->prepare(
+            'SELECT * FROM `users`
+        WHERE `mailAddress` = :usr
+        AND `password` = :pass
+        LIMIT 1;'
+        );
 
-        return $model;
+        $stmt->bindParam(':usr', $mailAddress, \PDO::PARAM_STR);
+        $stmt->bindParam(':pass', $password, \PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $result ?: null;
     }
 }
