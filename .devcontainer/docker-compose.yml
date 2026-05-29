@@ -10,6 +10,8 @@ services:
 
     environment:
       VIRTUAL_HOST: "${APP_VHOST}"
+      VIRTUAL_PROTO: "https"
+      VIRTUAL_PORT: 443
 
     volumes:
       - ../:/var/www/html:cached
